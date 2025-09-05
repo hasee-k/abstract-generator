@@ -4,6 +4,7 @@ import PyPDF2
 from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
 
+from GeminiImplementation import generate_abstract_gemini
 from LlamaImplementation import generate_abstract
 
 router = APIRouter()
@@ -25,6 +26,26 @@ async def generate_abstract_api(file: UploadFile = File(...)):
             return JSONResponse({"error": "No readable text found in PDF"}, status_code=400)
 
         abstract = generate_abstract(text)
+
+
+        return {"abstract": abstract}
+
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
+
+@router.post("/generate-abstract-gemini/")
+async def generate_abstract_api_gemini(file: UploadFile = File(...)):
+    try:
+        file_bytes = await file.read()
+        pdf_reader = PyPDF2.PdfReader(io.BytesIO(file_bytes))
+        text = ""
+        for page in pdf_reader.pages:
+            text += page.extract_text() or ""
+
+        if not text.strip():
+            return JSONResponse({"error": "No readable text found in PDF"}, status_code=400)
+
+        abstract = generate_abstract_gemini(text)
 
 
         return {"abstract": abstract}
