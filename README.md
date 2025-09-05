@@ -8,18 +8,18 @@ Follow these steps to run this project.
 ## 1. Create the `.env` file
 
 In the root folder of the project, create a new file called:
-
+```bash
 
 
 .env
-
+```
 
 Inside this file, add your Hugging Face token like this:
 
-
+```bash
 
 HF_TOKEN=your_token_here
-
+```
 
 (Replace `your_token_here` with your actual Hugging Face token.)
 
