@@ -59,6 +59,17 @@ def summarize_text(results):
     )
     return completion.choices[0].message.content
 
+def generate_answer_using_led(text, question):
+    token = 7000
+    overlap = 300
+    chunks = [text[i:i+token] for i in range(0, len(text), token - overlap)]
+    print("number of chunks:", len(chunks))
+    results = []
+    for chunk in chunks:
+        results.append(extract_important_points(chunk))
+
+    return generate_llama_answer(results, question)
+
 
 def generate_llama_answer(text, question):
     prompt = (

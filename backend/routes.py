@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from LEDImplementation import (SummaryResponse, extract_text_from_pdf_bytes,
                                generate_abstract_using_led)
 from LlamaImplementation import (generate_abstract_using_llama,
-                                 generate_llama_answer)
+                                 generate_answer_using_led)
 
 router = APIRouter()
 
@@ -60,14 +60,17 @@ async def generate_abstract_led(file: UploadFile = File(...)):
 async def llama_chat(file: UploadFile = File(...), question: str = Form(...)):
     try:
         file_bytes = await file.read()
+
         pdf_reader = PyPDF2.PdfReader(io.BytesIO(file_bytes))
         text = ""
         for page in pdf_reader.pages:
             text += page.extract_text() or ""
+
         if not text.strip():
             return JSONResponse({"error": "No readable text found in PDF"}, status_code=400)
-        # Use Llama to answer the question about the text
-        answer = generate_llama_answer(text, question)
+        answer = generate_answer_using_led(text, question)
         return {"answer": answer}
     except Exception as e:
+        import traceback
+        print("Error in /llama-chat/:", traceback.format_exc())
         return JSONResponse({"error": str(e)}, status_code=500)
