@@ -1,9 +1,13 @@
 fastapi
 uvicorn[standard]
-transformers>=4.0.0
+transformers
 torch
 tokenizers
 python-multipart
 PyMuPDF
 accelerate
 evaluate
+requests
+python-dotenv
+PyPDF2
+huggingface_hub
