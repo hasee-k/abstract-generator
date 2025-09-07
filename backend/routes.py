@@ -6,13 +6,17 @@ from fastapi.responses import JSONResponse
 from LEDImplementation import (SummaryResponse, extract_text_from_pdf_bytes,
                                generate_abstract_using_led)
 from LlamaImplementation import (generate_abstract_using_llama,
-                                 generate_answer_using_led)
+                                 generate_answer_using_llama)
 
 router = APIRouter()
 
 
 @router.post("/generate-abstract-llama/")
-async def generate_abstract_llama(file: UploadFile = File(...)):
+async def generate_abstract_llama(
+    file: UploadFile = File(...),
+    word_count: str = Form(...),
+    style: str = Form(...)
+):
     try:
         file_bytes = await file.read()
 
@@ -24,7 +28,7 @@ async def generate_abstract_llama(file: UploadFile = File(...)):
         if not text.strip():
             return JSONResponse({"error": "No readable text found in PDF"}, status_code=400)
 
-        abstract = generate_abstract_using_llama(text)
+        abstract = generate_abstract_using_llama(text, word_count=word_count, style=style)
 
         return {"abstract": abstract}
 
@@ -68,7 +72,7 @@ async def llama_chat(file: UploadFile = File(...), question: str = Form(...)):
 
         if not text.strip():
             return JSONResponse({"error": "No readable text found in PDF"}, status_code=400)
-        answer = generate_answer_using_led(text, question)
+        answer = generate_answer_using_llama(text, question)
         return {"answer": answer}
     except Exception as e:
         import traceback

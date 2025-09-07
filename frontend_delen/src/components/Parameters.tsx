@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { Model } from "@/pages/Index";
 
 interface ParametersProps {
@@ -73,7 +72,7 @@ export const Parameters = ({
             </Select>
           </div>
 
-          {mode === "Llama" && (
+          {/* {mode === "Llama" && (
             <div className="flex items-center gap-2">
               <Switch
                 id="ground-evidence"
@@ -84,7 +83,7 @@ export const Parameters = ({
                 Ground with cited evidence
               </Label>
             </div>
-          )}
+          )} */}
         </div>
       </CardContent>
     </Card>

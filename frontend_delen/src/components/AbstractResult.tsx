@@ -4,14 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
 import { Model } from "@/pages/Index";
-import {
-  ChevronDown,
-  Copy,
-  Download,
-  Eye,
-  EyeOff,
-  RefreshCw,
-} from "lucide-react";
+import { ChevronDown, Copy, Download, RefreshCw } from "lucide-react";
 import { useState } from "react";
 
 interface Source {
@@ -123,7 +116,7 @@ export const AbstractResult = ({
                 Regenerate
               </Button>
 
-              {model === "Llama" && sources.length > 0 && (
+              {/* {model === "Llama" && sources.length > 0 && (
                 <Button
                   variant="ghost"
                   size="sm"
@@ -137,7 +130,7 @@ export const AbstractResult = ({
                   )}
                   {showSources ? "Hide" : "Show"} sources
                 </Button>
-              )}
+              )} */}
             </div>
           </div>
         </CardHeader>

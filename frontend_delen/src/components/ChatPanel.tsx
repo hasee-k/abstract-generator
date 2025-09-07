@@ -105,7 +105,7 @@ export const ChatPanel = ({
                   }`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
+                    className={`max-w-[80%] max-h-60 overflow-y-auto rounded-lg p-3 ${
                       message.type === "user"
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-muted-foreground"

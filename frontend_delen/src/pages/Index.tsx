@@ -208,6 +208,8 @@ const Index = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile);
+    formData.append("word_count", wordBudget);
+    formData.append("style", style);
 
     const response = await fetch(endpoint, {
       method: "POST",
