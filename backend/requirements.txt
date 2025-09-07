@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+transformers>=4.0.0
+torch
+tokenizers
+python-multipart
+PyMuPDF
+accelerate
+evaluate
