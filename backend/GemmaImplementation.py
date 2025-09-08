@@ -13,7 +13,7 @@ model = genai.GenerativeModel(MODEL_NAME)
 
 
 def generate_abstract_using_gemma(text, word_count=300, style="formal academic"):
-    token = 6000  # chunk size for safety
+    token = 100000
     overlap = 300
     chunks = [text[i:i+token] for i in range(0, len(text), token - overlap)]
     print("number of chunks:", len(chunks))
@@ -29,7 +29,7 @@ def extract_important_points(text):
     response = model.generate_content(
         prompt,
         generation_config={
-            "temperature": 0.7,
+            "temperature": 0,
             "max_output_tokens": 800
         }
     )
@@ -52,7 +52,7 @@ def summarize_text(results, word_count, style):
     response = model.generate_content(
         prompt,
         generation_config={
-            "temperature": 0.4,
+            "temperature": 0,
             "max_output_tokens": 500
         }
     )
@@ -70,7 +70,7 @@ def extract_important_points_for_user_question(text, question):
     response = model.generate_content(
         prompt,
         generation_config={
-            "temperature": 0.7,
+            "temperature": 0,
             "max_output_tokens": 800
         }
     )
@@ -101,7 +101,7 @@ def generate_gemma_answer(results, question):
     response = model.generate_content(
         prompt,
         generation_config={
-            "temperature": 0.4,
+            "temperature": 0,
             "max_output_tokens": 300
         }
     )
