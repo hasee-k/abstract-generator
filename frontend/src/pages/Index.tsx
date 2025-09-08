@@ -204,7 +204,7 @@ const Index = () => {
     else if (model === "Llama")
       endpoint = `${BACKEND_URL}/generate-abstract-llama/`;
     else if (model === "Gemine")
-      endpoint = `${BACKEND_URL}/generate-abstract-gemine/`; // If you add Gemine backend
+      endpoint = `${BACKEND_URL}/generate-abstract-gemma/`;
 
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -224,7 +224,10 @@ const Index = () => {
 
   async function askLlamaChat(selectedFile: File, question: string) {
     const BACKEND_URL = "http://localhost:8000";
-    const endpoint = `${BACKEND_URL}/llama-chat/`;
+    let endpoint = ``;
+    if (model === "Llama") endpoint = `${BACKEND_URL}/llama-chat/`;
+    else if (model === "Gemine") endpoint = `${BACKEND_URL}/gemma-chat/`;
+    else return { error: "Chat not supported for this model." };
 
     const formData = new FormData();
     formData.append("file", selectedFile);
@@ -377,7 +380,7 @@ const Index = () => {
           </div>
 
           {/* Right Column - Chat (Desktop) */}
-          {model === "Llama" && (
+          {(model === "Llama" || model === "Gemine") && (
             <div className="hidden xl:block">
               <div className="sticky top-8 h-[600px]">
                 <ChatPanel
@@ -398,7 +401,7 @@ const Index = () => {
         </div>
 
         {/* Mobile Chat Button */}
-        {model === "Llama" && (
+        {(model === "Llama" || model === "Gemine") && (
           <div className="xl:hidden fixed bottom-6 right-6">
             <Button
               onClick={() => setShowMobileChat(true)}
@@ -412,7 +415,7 @@ const Index = () => {
         )}
 
         {/* Mobile Chat Modal */}
-        {showMobileChat && model === "Llama" && (
+        {showMobileChat && (model === "Llama" || model === "Gemine") && (
           <div className="xl:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-end">
             <div className="w-full h-[70vh] bg-background border-t border-border rounded-t-lg">
               <div className="h-full relative">
