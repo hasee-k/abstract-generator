@@ -33,7 +33,7 @@ def extract_important_points(text):
             {"role": "user", "content": prompt}
         ],
         max_tokens=600,
-        temperature=0.7
+        temperature=0
     )
     return completion.choices[0].message.content
 
@@ -56,7 +56,7 @@ def summarize_text(results, word_count, style):
             {"role": "user", "content": prompt}
         ],
         max_tokens=400,
-        temperature=0.4
+        temperature=0
     )
     return completion.choices[0].message.content
 
@@ -69,7 +69,7 @@ def extract_important_points_for_user_question(text, question):
             {"role": "user", "content": prompt}
         ],
         max_tokens=600,
-        temperature=0.7
+        temperature=0
     )
     return completion.choices[0].message.content
 
@@ -100,6 +100,6 @@ def generate_llama_answer(results, question):
             {"role": "user", "content": prompt}
         ],
         max_tokens=100,
-        temperature=0.4
+        temperature=0
     )
     return completion.choices[0].message.content
